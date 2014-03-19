@@ -5,11 +5,11 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class BlockGridPanel extends JPanel
+public class GamePanel extends JPanel
 {
     TetrisPiece testPiece;
 
-    public BlockGridPanel()
+    public GamePanel()
     {
         setFocusable(true);
         testPiece = new TetrisPiece(10, 10, Color.BLUE);

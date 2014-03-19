@@ -12,9 +12,9 @@ public class TetrisGame extends JFrame
         this.setPreferredSize(new java.awt.Dimension(400, 400));
         this.setSize(new java.awt.Dimension(400, 400));
 
-        BlockGridPanel blockGridPanel = new BlockGridPanel();
+        GamePanel gamePanel = new GamePanel();
 
-        this.add(blockGridPanel);
+        this.add(gamePanel);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.pack();
         this.setVisible(true);

@@ -18,7 +18,10 @@ public class TetrisPiece {
 
     private Color color;
 
-	public TetrisPiece(int xPos, int yPos, Color color) {
+
+
+	public TetrisPiece(int xPos, int yPos, Color color)
+    {
         this.xPos = xPos;
         this.yPos = yPos;
         this.color = color;
@@ -32,6 +35,16 @@ public class TetrisPiece {
 		shapeX[3] = 1;
 		shapeY[3] = 0;
 	}
+
+    public int getX()
+    {
+        return xPos;
+    }
+
+    public int getY()
+    {
+        return yPos;
+    }
 
     public void translate(int x, int y)
     {
