@@ -13,7 +13,7 @@ public class GamePanel extends JPanel
     {
         setFocusable(true);
         testPiece = TetrisPiece.createRandomPiece();
-        // testPiece = new TetrisPiece(10, 10, Color.BLUE);
+
         addKeyListener(new KeyListener()
         {
             @Override

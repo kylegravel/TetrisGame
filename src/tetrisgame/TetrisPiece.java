@@ -26,17 +26,42 @@ public class TetrisPiece {
         TetrisPiece randomPiece = new TetrisPiece(0, 0, new Color(randomNum.nextInt(256),
                                                                   randomNum.nextInt(256),
                                                                   randomNum.nextInt(256)));
+        int pieceNumber = 2;//randomNum.nextInt(3);
 
-        randomPiece.centerX = 0;
-        randomPiece.centerY = 0;
-        randomPiece.shapeX[0] = 0;
-        randomPiece.shapeY[0] = 2;
-        randomPiece.shapeX[1] = 0;
-        randomPiece.shapeY[1] = 1;
-        randomPiece.shapeX[2] = 0;
-        randomPiece.shapeY[2] = 0;
-        randomPiece.shapeX[3] = 1;
-        randomPiece.shapeY[3] = 0;
+        if (pieceNumber == 0) {
+            randomPiece.centerX = 0;
+            randomPiece.centerY = 1;
+            randomPiece.shapeX[0] = 0;
+            randomPiece.shapeY[0] = 2;
+            randomPiece.shapeX[1] = 0;
+            randomPiece.shapeY[1] = 1;
+            randomPiece.shapeX[2] = 0;
+            randomPiece.shapeY[2] = 0;
+            randomPiece.shapeX[3] = 0;
+            randomPiece.shapeY[3] = -1;
+        } else if (pieceNumber == 1) {
+            randomPiece.centerX = 0;
+            randomPiece.centerY = 0;
+            randomPiece.shapeX[0] = 0;
+            randomPiece.shapeY[0] = 2;
+            randomPiece.shapeX[1] = 0;
+            randomPiece.shapeY[1] = 1;
+            randomPiece.shapeX[2] = 0;
+            randomPiece.shapeY[2] = 0;
+            randomPiece.shapeX[3] = 1;
+            randomPiece.shapeY[3] = 0;
+        } else {
+            randomPiece.centerX = 0;
+            randomPiece.centerY = 0;
+            randomPiece.shapeX[0] = 1;
+            randomPiece.shapeY[0] = 2;
+            randomPiece.shapeX[1] = 1;
+            randomPiece.shapeY[1] = 1;
+            randomPiece.shapeX[2] = 1;
+            randomPiece.shapeY[2] = 0;
+            randomPiece.shapeX[3] = 0;
+            randomPiece.shapeY[3] = 0;
+        }
 
         return randomPiece;
     }
