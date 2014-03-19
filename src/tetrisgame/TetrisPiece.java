@@ -26,41 +26,95 @@ public class TetrisPiece {
         TetrisPiece randomPiece = new TetrisPiece(0, 0, new Color(randomNum.nextInt(256),
                                                                   randomNum.nextInt(256),
                                                                   randomNum.nextInt(256)));
-        int pieceNumber = 2;//randomNum.nextInt(3);
+        int pieceNumber = randomNum.nextInt(7);
 
-        if (pieceNumber == 0) {
-            randomPiece.centerX = 0;
-            randomPiece.centerY = 1;
-            randomPiece.shapeX[0] = 0;
-            randomPiece.shapeY[0] = 2;
-            randomPiece.shapeX[1] = 0;
-            randomPiece.shapeY[1] = 1;
-            randomPiece.shapeX[2] = 0;
-            randomPiece.shapeY[2] = 0;
-            randomPiece.shapeX[3] = 0;
-            randomPiece.shapeY[3] = -1;
-        } else if (pieceNumber == 1) {
-            randomPiece.centerX = 0;
-            randomPiece.centerY = 0;
-            randomPiece.shapeX[0] = 0;
-            randomPiece.shapeY[0] = 2;
-            randomPiece.shapeX[1] = 0;
-            randomPiece.shapeY[1] = 1;
-            randomPiece.shapeX[2] = 0;
-            randomPiece.shapeY[2] = 0;
-            randomPiece.shapeX[3] = 1;
-            randomPiece.shapeY[3] = 0;
-        } else {
-            randomPiece.centerX = 0;
-            randomPiece.centerY = 0;
-            randomPiece.shapeX[0] = 1;
-            randomPiece.shapeY[0] = 2;
-            randomPiece.shapeX[1] = 1;
-            randomPiece.shapeY[1] = 1;
-            randomPiece.shapeX[2] = 1;
-            randomPiece.shapeY[2] = 0;
-            randomPiece.shapeX[3] = 0;
-            randomPiece.shapeY[3] = 0;
+        switch (pieceNumber)
+        {
+            case 0:
+                randomPiece.centerX = 0;
+                randomPiece.centerY = 1;
+                randomPiece.shapeX[0] = 0;
+                randomPiece.shapeY[0] = 3;
+                randomPiece.shapeX[1] = 0;
+                randomPiece.shapeY[1] = 2;
+                randomPiece.shapeX[2] = 0;
+                randomPiece.shapeY[2] = 1;
+                randomPiece.shapeX[3] = 0;
+                randomPiece.shapeY[3] = 0;
+                break;
+            case 1:
+                randomPiece.centerX = 0;
+                randomPiece.centerY = 0;
+                randomPiece.shapeX[0] = 0;
+                randomPiece.shapeY[0] = 2;
+                randomPiece.shapeX[1] = 0;
+                randomPiece.shapeY[1] = 1;
+                randomPiece.shapeX[2] = 0;
+                randomPiece.shapeY[2] = 0;
+                randomPiece.shapeX[3] = 1;
+                randomPiece.shapeY[3] = 0;
+                break;
+            case 2:
+                randomPiece.centerX = 1;
+                randomPiece.centerY = 0;
+                randomPiece.shapeX[0] = 1;
+                randomPiece.shapeY[0] = 2;
+                randomPiece.shapeX[1] = 1;
+                randomPiece.shapeY[1] = 1;
+                randomPiece.shapeX[2] = 1;
+                randomPiece.shapeY[2] = 0;
+                randomPiece.shapeX[3] = 0;
+                randomPiece.shapeY[3] = 0;
+                break;
+            case 3:
+                randomPiece.centerX = 0;
+                randomPiece.centerY = 0;
+                randomPiece.shapeX[0] = 0;
+                randomPiece.shapeY[0] = 0;
+                randomPiece.shapeX[1] = 0;
+                randomPiece.shapeY[1] = 1;
+                randomPiece.shapeX[2] = 1;
+                randomPiece.shapeY[2] = 0;
+                randomPiece.shapeX[3] = 1;
+                randomPiece.shapeY[3] = 1;
+                break;
+            case 4:
+                randomPiece.centerX = 1;
+                randomPiece.centerY = 0;
+                randomPiece.shapeX[0] = 1;
+                randomPiece.shapeY[0] = 0;
+                randomPiece.shapeX[1] = 2;
+                randomPiece.shapeY[1] = 0;
+                randomPiece.shapeX[2] = 0;
+                randomPiece.shapeY[2] = 1;
+                randomPiece.shapeX[3] = 1;
+                randomPiece.shapeY[3] = 1;
+                break;
+            case 5:
+                randomPiece.centerX = 1;
+                randomPiece.centerY = 1;
+                randomPiece.shapeX[0] = 1;
+                randomPiece.shapeY[0] = 0;
+                randomPiece.shapeX[1] = 0;
+                randomPiece.shapeY[1] = 1;
+                randomPiece.shapeX[2] = 1;
+                randomPiece.shapeY[2] = 1;
+                randomPiece.shapeX[3] = 2;
+                randomPiece.shapeY[3] = 1;
+            case 6:
+                randomPiece.centerX = 1;
+                randomPiece.centerY = 0;
+                randomPiece.shapeX[0] = 1;
+                randomPiece.shapeY[0] = 0;
+                randomPiece.shapeX[1] = 0;
+                randomPiece.shapeY[1] = 0;
+                randomPiece.shapeX[2] = 2;
+                randomPiece.shapeY[2] = 1;
+                randomPiece.shapeX[3] = 1;
+                randomPiece.shapeY[3] = 1;
+                break;
+            default:
+                break;
         }
 
         return randomPiece;
@@ -105,8 +159,8 @@ public class TetrisPiece {
         for (int i=0; i<NUMBER_OF_BLOCKS_IN_PIECE; i++)
         {
             g2.setColor(color);
-            g2.fill(new Rectangle2D.Double((xPos+centerX)*BLOCK_WIDTH + shapeX[i]*BLOCK_WIDTH,
-                                           (yPos+centerY)*BLOCK_WIDTH + shapeY[i]*BLOCK_HEIGHT,
+            g2.fill(new Rectangle2D.Double((xPos)*BLOCK_WIDTH + shapeX[i]*BLOCK_WIDTH,
+                                           (yPos)*BLOCK_WIDTH + shapeY[i]*BLOCK_HEIGHT,
                                            BLOCK_WIDTH, BLOCK_HEIGHT));
 
         }
