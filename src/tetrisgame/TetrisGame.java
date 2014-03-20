@@ -24,7 +24,5 @@ public class TetrisGame extends JFrame
     {
         new TetrisGame();
     }
-}
-        new TetrisGame();
-    }
+
 }
