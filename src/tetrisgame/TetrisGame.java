@@ -3,8 +3,7 @@ package tetrisgame;
 import javax.swing.*;
 
 public class TetrisGame extends JFrame
-{	
-	
+{
     public TetrisGame()
     {
         super("Tetris");
@@ -13,11 +12,9 @@ public class TetrisGame extends JFrame
         this.setPreferredSize(new java.awt.Dimension(400, 400));
         this.setSize(new java.awt.Dimension(400, 400));
 
-        //TetrisPanel tetrisPanel = new TetrisPanel();
         GamePanel gamePanel = new GamePanel();
 
         this.add(gamePanel);
-       
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.pack();
         this.setVisible(true);
@@ -25,6 +22,9 @@ public class TetrisGame extends JFrame
 
     public static void main(String[] args)
     {
+        new TetrisGame();
+    }
+}
         new TetrisGame();
     }
 }
