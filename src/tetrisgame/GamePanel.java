@@ -56,6 +56,7 @@ public class GamePanel extends JPanel
                     testPiece.transferToGrid(blockGrid);
                 }
 
+                addPieceToGridIfAtBottom();
 
                 repaint();
             }
@@ -71,12 +72,21 @@ public class GamePanel extends JPanel
       	  
       	   public void actionPerformed(ActionEvent e) {
       		   testPiece.translate(0,1);
+               addPieceToGridIfAtBottom();
       		   repaint();
              }
          });
          
          t.start();		//start on start of application
-        
+    }
+
+    public void addPieceToGridIfAtBottom()
+    {
+        if (testPiece.checkCollisionOnGrid(blockGrid)) {
+            testPiece.translate(0, -1);
+            testPiece.transferToGrid(blockGrid);
+            testPiece = TetrisPiece.createRandomPiece();
+        }
     }
 
     public void paintComponent(Graphics g) {

@@ -23,6 +23,10 @@ public class BlockGrid
         blocks = new ArrayList<Block>();
     }
 
+    public int getHeight() {
+        return height;
+    }
+
     public boolean isBlockHere(int x, int y)
     {
         if ((x >= width) || (y >= height))
