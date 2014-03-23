@@ -3,6 +3,7 @@ package tetrisgame;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class BlockGrid
 {
@@ -45,20 +46,19 @@ public class BlockGrid
         }
     }
 
-    private void removeRow(int rowToRemove)
+    public void removeRow(int rowToRemove)
     {
-        /*for (int row = rowToRemove; row>0; row--)
-            for (int block=0; block<width; block++)
-                grid[row][block] = grid[row-1][block];*/
-
         // Clear row
-        for (int block = 0; block < width; block++)
-            if (blocks.get(block).getY() == rowToRemove)
-                blocks.remove(block);
+        Iterator<Block> it = blocks.iterator();
+        while (it.hasNext()) {
+            Block block = it.next();
+            if (block.getY() == rowToRemove)
+                it.remove();
+        }
 
         // Drop rows
         for (int row = rowToRemove - 1; row > 0; row--) {
-            for (int block = 0; block < width; block++) {
+            for (int block = 0; block < blocks.size(); block++) {
                 if (blocks.get(block).getY() == row)
                     blocks.get(block).dropOnce();
             }

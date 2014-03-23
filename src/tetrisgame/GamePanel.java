@@ -19,8 +19,11 @@ public class GamePanel extends JPanel
         setFocusable(true);
         testPiece = TetrisPiece.createRandomPiece();
         blockGrid = new BlockGrid(20, 20, 0, 0);
-        blockGrid.placeBlock(0, 0, Color.BLACK);
-        blockGrid.placeBlock(19, 19, Color.BLACK);
+
+        for (int i=0; i<20; i++)
+            blockGrid.placeBlock(i, 19, Color.BLACK);
+        for (int i=0; i<18; i++)
+            blockGrid.placeBlock(i, 18, Color.BLUE);
 
         addKeyListener(new KeyListener()
         {
@@ -43,7 +46,6 @@ public class GamePanel extends JPanel
                 } else if (keyPressed == KeyEvent.VK_DOWN) {
                     testPiece.translate(0, 1);
                 }
-
                 repaint();
             }
 
