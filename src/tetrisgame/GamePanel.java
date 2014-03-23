@@ -11,17 +11,23 @@ import java.awt.event.KeyListener;
 public class GamePanel extends JPanel
 {
     TetrisPiece testPiece;
+    BlockGrid blockGrid;
     private int DELAY = 2000; //piece moves down 2000 miliseconds (2 seconds)
 
     public GamePanel()
     {
         setFocusable(true);
         testPiece = TetrisPiece.createRandomPiece();
-        // testPiece = new TetrisPiece(10, 10, Color.BLUE);
+        blockGrid = new BlockGrid(20, 20, 0, 0);
+        blockGrid.placeBlock(0, 0, Color.BLACK);
+        blockGrid.placeBlock(19, 19, Color.BLACK);
+
         addKeyListener(new KeyListener()
         {
             @Override
-            public void keyTyped(KeyEvent e) {}
+            public void keyTyped(KeyEvent e)
+            {
+            }
 
             @Override
             public void keyPressed(KeyEvent e)
@@ -41,7 +47,9 @@ public class GamePanel extends JPanel
                 repaint();
             }
 
-            public void keyReleased(KeyEvent e) {}
+            public void keyReleased(KeyEvent e)
+            {
+            }
         });
         
         
@@ -62,5 +70,6 @@ public class GamePanel extends JPanel
         super.paintComponent(g);
         Graphics2D brush = (Graphics2D) g;
         testPiece.draw(brush);
+        blockGrid.draw(brush);
     }
 }

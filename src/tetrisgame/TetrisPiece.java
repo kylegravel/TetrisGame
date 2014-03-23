@@ -7,7 +7,7 @@ import java.util.Random;
 public class TetrisPiece {
 
     public final int NUMBER_OF_BLOCKS_IN_PIECE = 4;
-    public final int BLOCK_WIDTH = 10, BLOCK_HEIGHT = 10;
+    public static final int BLOCK_WIDTH = 10, BLOCK_HEIGHT = 10;
 
     private int centerX = 0;
     private int centerY = 0;
