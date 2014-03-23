@@ -23,8 +23,24 @@ public class BlockGrid
         blocks = new ArrayList<Block>();
     }
 
-    public int getHeight() {
+    public int getHeight()
+    {
         return height;
+    }
+
+    public int getWidth()
+    {
+        return width;
+    }
+
+    public int getX()
+    {
+        return drawX;
+    }
+
+    public int getY()
+    {
+        return drawY;
     }
 
     public boolean isBlockHere(int x, int y)
@@ -37,6 +53,21 @@ public class BlockGrid
                 return true;
 
         return false;
+    }
+
+    public void placeBlock(int x, int y, Color color)
+    {
+        if ((x >= width) || (y >= height))
+            return;
+        blocks.add(new Block(x, y, color));
+
+        // Clear row, if full
+        /* int blocksInRow = 0;
+        for (Block block : blocks)
+            if (block.getY() == y)
+                blocksInRow++;
+        if (blocksInRow == width)
+            removeRow(y); */
     }
 
     public void draw(Graphics2D g2)
@@ -67,19 +98,25 @@ public class BlockGrid
         }
     }
 
-    public void placeBlock(int x, int y, Color color)
+    public void removeFullRows()
     {
-        if ((x >= width) || (y >= height))
-            return;
-        blocks.add(new Block(x, y, color));
+        for (int row = 0; row < getHeight(); row++)
+            if (rowIsFull(row))
+                removeRow(row);
+    }
 
-        // Clear row, if full
-        int blocksInRow = 0;
+    private boolean rowIsFull(int row)
+    {
+        return numberOfBlocksInRow(row) == width;
+    }
+
+    private int numberOfBlocksInRow(int row)
+    {
+        int count = 0;
         for (Block block : blocks)
-            if (block.getY() == y)
-                blocksInRow++;
-        if (blocksInRow == width)
-            removeRow(y);
+            if (block.getY() == row)
+                count++;
+        return count;
     }
 
     private class Block

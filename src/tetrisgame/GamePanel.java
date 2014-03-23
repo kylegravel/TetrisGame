@@ -12,19 +12,22 @@ public class GamePanel extends JPanel
 {
     TetrisPiece testPiece;
     BlockGrid blockGrid;
-    private int DELAY = 2000; //piece moves down 2000 miliseconds (2 seconds)
+
+    private final int DELAY = 2000; //piece moves down 2000 miliseconds (2 seconds)
+    private final int gridX = 0, gridY = 0;
+    private final int gridWidth = 20, gridHeight = 20;
 
     public GamePanel()
     {
         setFocusable(true);
         testPiece = TetrisPiece.createRandomPiece();
-        blockGrid = new BlockGrid(20, 20, 0, 0);
+        blockGrid = new BlockGrid(20, 20, gridX, gridY);
 
-        for (int i=0; i<20; i++)
+        for (int i=0; i<19; i++)
             blockGrid.placeBlock(i, 19, Color.BLACK);
         for (int i=0; i<18; i++)
             blockGrid.placeBlock(i, 18, Color.BLUE);
-        for (int i=0; i<19; i++)
+        for (int i=0; i<17; i++)
             blockGrid.placeBlock(i, 17, Color.GREEN);
 
         addKeyListener(new KeyListener()
@@ -43,8 +46,12 @@ public class GamePanel extends JPanel
                     testPiece.rotateCounterClockwise();
                 } else if (keyPressed == KeyEvent.VK_LEFT) {
                     testPiece.translate(-1, 0);
+                    if (testPiece.checkSideCollision(blockGrid))
+                        testPiece.translate(1, 0);
                 } else if (keyPressed == KeyEvent.VK_RIGHT) {
                     testPiece.translate(1, 0);
+                    if (testPiece.checkSideCollision(blockGrid))
+                        testPiece.translate(-1, 0);
                 } else if (keyPressed == KeyEvent.VK_DOWN) {
                     testPiece.translate(0, 1);
                 }
@@ -82,9 +89,10 @@ public class GamePanel extends JPanel
 
     public void addPieceToGridIfAtBottom()
     {
-        if (testPiece.checkCollisionOnGrid(blockGrid)) {
+        if (testPiece.checkBottomCollision(blockGrid)) {
             testPiece.translate(0, -1);
             testPiece.transferToGrid(blockGrid);
+            blockGrid.removeFullRows();
             testPiece = TetrisPiece.createRandomPiece();
         }
     }

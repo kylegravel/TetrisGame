@@ -160,11 +160,20 @@ public class TetrisPiece {
         }
     }
 
-    public boolean checkCollisionOnGrid(BlockGrid blockGrid)
+    public boolean checkBottomCollision(BlockGrid blockGrid)
     {
         for (int i=0; i<NUMBER_OF_BLOCKS_IN_PIECE; i++)
             if (blockGrid.isBlockHere(xPos + shapeX[i], yPos + shapeY[i])
             || (yPos + shapeY[i] >= blockGrid.getHeight()))
+                return true;
+        return false;
+    }
+
+    public boolean checkSideCollision(BlockGrid blockGrid)
+    {
+        for (int i=0; i<NUMBER_OF_BLOCKS_IN_PIECE; i++)
+            if ((xPos + shapeX[i] >= blockGrid.getWidth())
+            || ((xPos + shapeX[i] < blockGrid.getX())))
                 return true;
         return false;
     }
