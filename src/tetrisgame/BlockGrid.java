@@ -72,6 +72,14 @@ public class BlockGrid
         if ((x >= width) || (y >= height))
             return;
         blocks.add(new Block(x, y, color));
+
+        // Clear row, if full
+        int blocksInRow = 0;
+        for (Block block : blocks)
+            if (block.getY() == y)
+                blocksInRow++;
+        if (blocksInRow == width)
+            removeRow(y);
     }
 
     private class Block
