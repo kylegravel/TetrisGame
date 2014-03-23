@@ -57,13 +57,10 @@ public class BlockGrid
         }
 
         // Drop rows
-        for (int row = rowToRemove - 1; row > 0; row--) {
-            for (int block = 0; block < blocks.size(); block++) {
-                if (blocks.get(block).getY() == row)
-                    blocks.get(block).dropOnce();
-            }
+        for (Block block : blocks) {
+            if (block.getY() < rowToRemove)
+                block.dropOnce();
         }
-
     }
 
     public void placeBlock(int x, int y, Color color)

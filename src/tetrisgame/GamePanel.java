@@ -24,6 +24,8 @@ public class GamePanel extends JPanel
             blockGrid.placeBlock(i, 19, Color.BLACK);
         for (int i=0; i<18; i++)
             blockGrid.placeBlock(i, 18, Color.BLUE);
+        for (int i=0; i<19; i++)
+            blockGrid.placeBlock(i, 17, Color.GREEN);
 
         addKeyListener(new KeyListener()
         {
@@ -46,6 +48,15 @@ public class GamePanel extends JPanel
                 } else if (keyPressed == KeyEvent.VK_DOWN) {
                     testPiece.translate(0, 1);
                 }
+
+                // for various test
+                if (keyPressed == KeyEvent.VK_1)
+                    blockGrid.removeRow(19);
+                else if (keyPressed == KeyEvent.VK_2) {
+                    testPiece.transferToGrid(blockGrid);
+                }
+
+
                 repaint();
             }
 
