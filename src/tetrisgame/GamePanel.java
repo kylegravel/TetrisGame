@@ -13,9 +13,10 @@ public class GamePanel extends JPanel
     TetrisPiece activePiece;
     BlockGrid blockGrid;
 
-    private final int DELAY = 2000; //piece moves down 2000 milliseconds (2 seconds)
+    private int fallDelay = 1000; // milliseconds
+
     private final int gridX = 0, gridY = 0;
-    private final int gridWidth = 25, gridHeight = 37;
+    private final int gridWidth = 20, gridHeight = 37;
 
     private boolean gameOver = false;
 
@@ -73,7 +74,7 @@ public class GamePanel extends JPanel
         });
         
         //Setting Timer
-        fallTimer = new Timer(DELAY, new ActionListener() {
+        fallTimer = new Timer(fallDelay, new ActionListener() {
       	   public void actionPerformed(ActionEvent e) {
                activePiece.translate(0, 1);
                addPieceToGridIfAtBottom();
@@ -99,6 +100,9 @@ public class GamePanel extends JPanel
                 gameOver = true;
                 fallTimer.stop();
             }
+
+            // increase difficulty by decreasing falling speed of pieces
+            if (fallDelay > 300) fallDelay -= 10;
         }
     }
 
