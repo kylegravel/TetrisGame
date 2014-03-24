@@ -7,13 +7,13 @@ import java.util.Random;
 public class TetrisPiece {
 
     public final int NUMBER_OF_BLOCKS_IN_PIECE = 4;
-    public final int BLOCK_WIDTH = 10, BLOCK_HEIGHT = 10;
+    public static final int BLOCK_WIDTH = 10, BLOCK_HEIGHT = 10;
 
     private int centerX = 0;
     private int centerY = 0;
 
-    private int shapeX[] = new int[4];
-    private int shapeY[] = new int[4];
+    private int shapeX[] = new int[NUMBER_OF_BLOCKS_IN_PIECE];
+    private int shapeY[] = new int[NUMBER_OF_BLOCKS_IN_PIECE];
 
     private int xPos, yPos;
 
@@ -145,8 +145,7 @@ public class TetrisPiece {
 
     public void rotateCounterClockwise()
     {
-        for (int i=0; i<NUMBER_OF_BLOCKS_IN_PIECE; i++)
-        {
+        for (int i=0; i<NUMBER_OF_BLOCKS_IN_PIECE; i++) {
             int newPositionX = centerX - centerY + shapeY[i];
             int newPositionY = centerX + centerY - shapeX[i];
             shapeX[i] = newPositionX;
@@ -154,10 +153,34 @@ public class TetrisPiece {
         }
     }
 
-    public void draw(Graphics2D g2)
+    public void transferToGrid(BlockGrid blockGrid)
+    {
+        for (int i=0; i<NUMBER_OF_BLOCKS_IN_PIECE; i++) {
+            blockGrid.placeBlock(xPos + shapeX[i], yPos + shapeY[i], color);
+        }
+    }
+
+    public boolean checkBottomCollision(BlockGrid blockGrid)
     {
         for (int i=0; i<NUMBER_OF_BLOCKS_IN_PIECE; i++)
-        {
+            if (blockGrid.isBlockHere(xPos + shapeX[i], yPos + shapeY[i])
+            || (yPos + shapeY[i] >= blockGrid.getHeight()))
+                return true;
+        return false;
+    }
+
+    public boolean checkSideCollision(BlockGrid blockGrid)
+    {
+        for (int i=0; i<NUMBER_OF_BLOCKS_IN_PIECE; i++)
+            if ((xPos + shapeX[i] >= blockGrid.getWidth())
+            || ((xPos + shapeX[i] < blockGrid.getX())))
+                return true;
+        return false;
+    }
+
+    public void draw(Graphics2D g2)
+    {
+        for (int i=0; i<NUMBER_OF_BLOCKS_IN_PIECE; i++) {
             g2.setColor(color);
             g2.fill(new Rectangle2D.Double((xPos)*BLOCK_WIDTH + shapeX[i]*BLOCK_WIDTH,
                                            (yPos)*BLOCK_WIDTH + shapeY[i]*BLOCK_HEIGHT,
