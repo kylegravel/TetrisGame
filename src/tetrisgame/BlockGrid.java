@@ -60,18 +60,13 @@ public class BlockGrid
         if ((x >= width) || (y >= height))
             return;
         blocks.add(new Block(x, y, color));
-
-        // Clear row, if full
-        /* int blocksInRow = 0;
-        for (Block block : blocks)
-            if (block.getY() == y)
-                blocksInRow++;
-        if (blocksInRow == width)
-            removeRow(y); */
     }
 
     public void draw(Graphics2D g2)
     {
+        g2.setColor(Color.BLACK);
+        g2.fillRect(drawX, drawY, width*TetrisPiece.BLOCK_WIDTH, height*TetrisPiece.BLOCK_HEIGHT);
+
         for (Block block : blocks) {
             g2.setColor(block.getColor());
             g2.fill(new Rectangle2D.Double(drawX + block.getX()*TetrisPiece.BLOCK_WIDTH,

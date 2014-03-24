@@ -10,25 +10,22 @@ import java.awt.event.KeyListener;
 
 public class GamePanel extends JPanel
 {
-    TetrisPiece testPiece;
+    TetrisPiece activePiece;
     BlockGrid blockGrid;
 
     private final int DELAY = 2000; //piece moves down 2000 milliseconds (2 seconds)
     private final int gridX = 0, gridY = 0;
-    private final int gridWidth = 20, gridHeight = 20;
+    private final int gridWidth = 25, gridHeight = 37;
+
+    private boolean gameOver = false;
+
+    private Timer fallTimer;
 
     public GamePanel()
     {
         setFocusable(true);
-        testPiece = TetrisPiece.createRandomPiece();
-        blockGrid = new BlockGrid(20, 20, gridX, gridY);
-
-        for (int i=0; i<19; i++)
-            blockGrid.placeBlock(i, 19, Color.BLACK);
-        for (int i=0; i<18; i++)
-            blockGrid.placeBlock(i, 18, Color.BLUE);
-        for (int i=0; i<17; i++)
-            blockGrid.placeBlock(i, 17, Color.GREEN);
+        activePiece = TetrisPiece.createRandomPiece(gridWidth/2);
+        blockGrid = new BlockGrid(gridWidth, gridHeight, gridX, gridY);
 
         addKeyListener(new KeyListener()
         {
@@ -40,27 +37,29 @@ public class GamePanel extends JPanel
             @Override
             public void keyPressed(KeyEvent e)
             {
+                if (gameOver) return;
+
                 int keyPressed = e.getKeyCode();
 
                 if (keyPressed == KeyEvent.VK_SPACE) {
-                    testPiece.rotateCounterClockwise();
+                    activePiece.rotateCounterClockwise();
                 } else if (keyPressed == KeyEvent.VK_LEFT) {
-                    testPiece.translate(-1, 0);
-                    if (testPiece.checkSideCollision(blockGrid))
-                        testPiece.translate(1, 0);
+                    activePiece.translate(-1, 0);
+                    if (activePiece.checkSideCollision(blockGrid))
+                        activePiece.translate(1, 0);
                 } else if (keyPressed == KeyEvent.VK_RIGHT) {
-                    testPiece.translate(1, 0);
-                    if (testPiece.checkSideCollision(blockGrid))
-                        testPiece.translate(-1, 0);
+                    activePiece.translate(1, 0);
+                    if (activePiece.checkSideCollision(blockGrid))
+                        activePiece.translate(-1, 0);
                 } else if (keyPressed == KeyEvent.VK_DOWN) {
-                    testPiece.translate(0, 1);
+                    activePiece.translate(0, 1);
                 }
 
                 // for various test
                 if (keyPressed == KeyEvent.VK_1)
                     blockGrid.removeRow(19);
                 else if (keyPressed == KeyEvent.VK_2) {
-                    testPiece.transferToGrid(blockGrid);
+                    activePiece.transferToGrid(blockGrid);
                 }
 
                 addPieceToGridIfAtBottom();
@@ -74,33 +73,45 @@ public class GamePanel extends JPanel
         });
         
         //Setting Timer
-        Timer t = new Timer(DELAY, new ActionListener() {
-      	  
+        fallTimer = new Timer(DELAY, new ActionListener() {
       	   public void actionPerformed(ActionEvent e) {
-      		   testPiece.translate(0,1);
+               activePiece.translate(0, 1);
                addPieceToGridIfAtBottom();
       		   repaint();
              }
          });
-         
-         t.start();		//start on start of application
+
+        fallTimer.start();		//start on start of application
     }
     
     
     public void addPieceToGridIfAtBottom()
     {
-        if (testPiece.checkBottomCollision(blockGrid)) {	//Defined in tetrisPiece class, boolean value if 
-            testPiece.translate(0, -1);
-            testPiece.transferToGrid(blockGrid);
+        if (activePiece.checkBottomCollision(blockGrid)) {	//Defined in tetrisPiece class, boolean value if
+            activePiece.translate(0, -1);
+            activePiece.transferToGrid(blockGrid);
             blockGrid.removeFullRows();
-            testPiece = TetrisPiece.createRandomPiece();
+
+            activePiece = TetrisPiece.createRandomPiece(gridWidth/2);
+            if (activePiece.checkBottomCollision(blockGrid)) {
+                while (activePiece.checkBottomCollision(blockGrid))
+                    activePiece.translate(0, -1);
+                gameOver = true;
+                fallTimer.stop();
+            }
         }
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D brush = (Graphics2D) g;
-        testPiece.draw(brush);
         blockGrid.draw(brush);
+        activePiece.draw(brush);
+
+        if (gameOver) {
+            brush.setColor(Color.WHITE);
+            brush.setFont(new Font("arial", Font.BOLD, 25));
+            brush.drawString("Game Over", 50, 200);
+        }
     }
 }

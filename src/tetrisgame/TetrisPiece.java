@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class TetrisPiece {
 
-    public final int NUMBER_OF_BLOCKS_IN_PIECE = 4;
+    public static final int NUMBER_OF_BLOCKS_IN_PIECE = 4;
     public static final int BLOCK_WIDTH = 10, BLOCK_HEIGHT = 10;
 
     private int centerX = 0;
@@ -27,7 +27,7 @@ public class TetrisPiece {
      * Method creates 1 of 7 tetris pieces
      * Uses a random number generator for ints 0-7
      */
-    public static TetrisPiece createRandomPiece()
+    public static TetrisPiece createRandomPiece(int startingLocation)
     {
         TetrisPiece randomPiece = new TetrisPiece(0, 0, new Color(randomNum.nextInt(256),
                                                                   randomNum.nextInt(256),
@@ -122,6 +122,8 @@ public class TetrisPiece {
             default:
                 break;
         }
+
+        randomPiece.xPos = startingLocation;
 
         return randomPiece;
     }
