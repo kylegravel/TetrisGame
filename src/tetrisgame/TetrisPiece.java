@@ -20,13 +20,19 @@ public class TetrisPiece {
     private Color color;
 
     private static Random randomNum = new Random();
-
+    
+    /*
+     * createRandomPiece
+     * 
+     * Method creates 1 of 7 tetris pieces
+     * Uses a random number generator for ints 0-7
+     */
     public static TetrisPiece createRandomPiece()
     {
         TetrisPiece randomPiece = new TetrisPiece(0, 0, new Color(randomNum.nextInt(256),
                                                                   randomNum.nextInt(256),
                                                                   randomNum.nextInt(256)));
-        int pieceNumber = randomNum.nextInt(7);
+        int pieceNumber = randomNum.nextInt(7);		//Random number generator to select pieces 1-7 
 
         switch (pieceNumber)
         {
@@ -119,19 +125,22 @@ public class TetrisPiece {
 
         return randomPiece;
     }
-
+    
+    //TetrisPiece constructor
 	public TetrisPiece(int xPos, int yPos, Color color)
     {
         this.xPos = xPos;
         this.yPos = yPos;
         this.color = color;
 	}
-
+	
+	//Helper method used to return the private variable x
     public int getX()
     {
         return xPos;
     }
-
+    
+    //Helper method used to return the private variable y
     public int getY()
     {
         return yPos;
@@ -152,14 +161,28 @@ public class TetrisPiece {
             shapeY[i] = newPositionY;
         }
     }
-
+    
+    /*
+     * transferToGrid
+     * 
+     * Adds all inactive pieces to the blockGrid used to manage blocks
+     * that have fallen to the bottom of the tetris playing field
+     */
     public void transferToGrid(BlockGrid blockGrid)
     {
         for (int i=0; i<NUMBER_OF_BLOCKS_IN_PIECE; i++) {
             blockGrid.placeBlock(xPos + shapeX[i], yPos + shapeY[i], color);
         }
     }
-
+    
+    /*
+     * checkBottomCollision
+     * 
+     * Boolean value assigned if Tetris block collides with another
+     * block in the block grid
+     * or
+     * if block hits the bottom of the screen stop piece
+     */
     public boolean checkBottomCollision(BlockGrid blockGrid)
     {
         for (int i=0; i<NUMBER_OF_BLOCKS_IN_PIECE; i++)
@@ -168,7 +191,13 @@ public class TetrisPiece {
                 return true;
         return false;
     }
-
+    
+    /*
+     * checkSideCollision
+     * 
+     * Boolean value assigned if Tetris piece tries to leave the horizontal
+     * bounds of the screen
+     */  		
     public boolean checkSideCollision(BlockGrid blockGrid)
     {
         for (int i=0; i<NUMBER_OF_BLOCKS_IN_PIECE; i++)

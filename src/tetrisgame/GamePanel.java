@@ -13,7 +13,7 @@ public class GamePanel extends JPanel
     TetrisPiece testPiece;
     BlockGrid blockGrid;
 
-    private final int DELAY = 2000; //piece moves down 2000 miliseconds (2 seconds)
+    private final int DELAY = 2000; //piece moves down 2000 milliseconds (2 seconds)
     private final int gridX = 0, gridY = 0;
     private final int gridWidth = 20, gridHeight = 20;
 
@@ -73,7 +73,6 @@ public class GamePanel extends JPanel
             }
         });
         
-        
         //Setting Timer
         Timer t = new Timer(DELAY, new ActionListener() {
       	  
@@ -86,10 +85,11 @@ public class GamePanel extends JPanel
          
          t.start();		//start on start of application
     }
-
+    
+    
     public void addPieceToGridIfAtBottom()
     {
-        if (testPiece.checkBottomCollision(blockGrid)) {
+        if (testPiece.checkBottomCollision(blockGrid)) {	//Defined in tetrisPiece class, boolean value if 
             testPiece.translate(0, -1);
             testPiece.transferToGrid(blockGrid);
             blockGrid.removeFullRows();
