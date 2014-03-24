@@ -11,7 +11,7 @@ import java.awt.event.KeyListener;
 public class GamePanel extends JPanel
 {
     TetrisPiece testPiece;
-    private int DELAY = 2000; //piece moves down 2000 miliseconds (2 seconds)
+    private int DELAY = 2000; //piece moves down 2000 milliseconds (2 seconds)
 
     public GamePanel()
     {
@@ -49,6 +49,7 @@ public class GamePanel extends JPanel
         Timer t = new Timer(DELAY, new ActionListener() {
       	  
       	   public void actionPerformed(ActionEvent e) {
+      		   
       		   testPiece.translate(0,1);
       		   repaint();
              }

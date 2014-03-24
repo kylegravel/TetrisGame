@@ -13,7 +13,8 @@ public class TetrisGame extends JFrame
         this.setSize(new java.awt.Dimension(400, 400));
 
         GamePanel gamePanel = new GamePanel();
-
+        //TetrisPanel tetrisPanel = new TetrisPanel();
+        
         this.add(gamePanel);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.pack();

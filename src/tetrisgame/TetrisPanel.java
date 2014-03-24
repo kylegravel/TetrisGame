@@ -10,7 +10,7 @@ public class TetrisPanel extends JPanel {
 		
 	public TetrisPanel() {
 		
-		super(new GridLayout(1,1));
+		super(new GridLayout(2,0));
 		
 		//Tetris Panel
 		//Adds Start, Instruction, switches to game panel upon start
