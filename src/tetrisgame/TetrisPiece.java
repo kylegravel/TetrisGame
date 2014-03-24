@@ -209,6 +209,11 @@ public class TetrisPiece {
         return false;
     }
 
+    public boolean checkAnyCollision(BlockGrid blockGrid)
+    {
+        return checkSideCollision(blockGrid) || checkBottomCollision(blockGrid);
+    }
+
     public void draw(Graphics2D g2)
     {
         for (int i=0; i<NUMBER_OF_BLOCKS_IN_PIECE; i++) {

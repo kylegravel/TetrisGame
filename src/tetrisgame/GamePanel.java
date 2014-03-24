@@ -13,12 +13,13 @@ public class GamePanel extends JPanel
     TetrisPiece activePiece;
     BlockGrid blockGrid;
 
-    private int fallDelay = 1000; // milliseconds
+    private int fallDelay = 500; // milliseconds
 
     private final int gridX = 0, gridY = 0;
     private final int gridWidth = 20, gridHeight = 37;
 
     private boolean gameOver = false;
+    private boolean paused = false;
 
     private Timer fallTimer;
 
@@ -42,28 +43,34 @@ public class GamePanel extends JPanel
 
                 int keyPressed = e.getKeyCode();
 
-                if (keyPressed == KeyEvent.VK_SPACE) {
-                    activePiece.rotateCounterClockwise();
-                } else if (keyPressed == KeyEvent.VK_LEFT) {
-                    activePiece.translate(-1, 0);
-                    if (activePiece.checkSideCollision(blockGrid))
-                        activePiece.translate(1, 0);
-                } else if (keyPressed == KeyEvent.VK_RIGHT) {
-                    activePiece.translate(1, 0);
-                    if (activePiece.checkSideCollision(blockGrid))
+                if (keyPressed == KeyEvent.VK_P) {
+                    if (paused)
+                        fallTimer.restart();
+                    else fallTimer.stop();
+
+                    paused = !paused;
+                }
+
+                if (!paused) {
+                    if (keyPressed == KeyEvent.VK_SPACE) {
+                        activePiece.rotateCounterClockwise();
+                        if (activePiece.checkAnyCollision(blockGrid))
+                            // Return to original rotation
+                            for (int i=0; i<3; i++)
+                                activePiece.rotateCounterClockwise();
+                    } else if (keyPressed == KeyEvent.VK_LEFT) {
                         activePiece.translate(-1, 0);
-                } else if (keyPressed == KeyEvent.VK_DOWN) {
-                    activePiece.translate(0, 1);
-                }
+                        if (activePiece.checkAnyCollision(blockGrid))
+                            activePiece.translate(1, 0);
+                    } else if (keyPressed == KeyEvent.VK_RIGHT) {
+                        activePiece.translate(1, 0);
+                        if (activePiece.checkAnyCollision(blockGrid))
+                            activePiece.translate(-1, 0);
+                    } else if (keyPressed == KeyEvent.VK_DOWN)
+                        activePiece.translate(0, 1);
 
-                // for various test
-                if (keyPressed == KeyEvent.VK_1)
-                    blockGrid.removeRow(19);
-                else if (keyPressed == KeyEvent.VK_2) {
-                    activePiece.transferToGrid(blockGrid);
+                    addPieceToGridIfAtBottom();
                 }
-
-                addPieceToGridIfAtBottom();
 
                 repaint();
             }
@@ -102,7 +109,7 @@ public class GamePanel extends JPanel
             }
 
             // increase difficulty by decreasing falling speed of pieces
-            if (fallDelay > 300) fallDelay -= 10;
+            if (fallDelay > 50) fallDelay -= 4;
         }
     }
 
@@ -112,10 +119,12 @@ public class GamePanel extends JPanel
         blockGrid.draw(brush);
         activePiece.draw(brush);
 
-        if (gameOver) {
-            brush.setColor(Color.WHITE);
-            brush.setFont(new Font("arial", Font.BOLD, 25));
-            brush.drawString("Game Over", 50, 200);
-        }
+        brush.setColor(Color.WHITE);
+        brush.setFont(new Font("arial", Font.BOLD, 25));
+        if (gameOver)
+            brush.drawString("Game Over", 35, 200);
+        else if (paused)
+            brush.drawString("Paused", 50, 200);
+
     }
 }
