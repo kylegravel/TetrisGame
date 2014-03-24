@@ -116,6 +116,10 @@ public class GamePanel extends JPanel
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D brush = (Graphics2D) g;
+
+        brush.setColor(Color.WHITE);
+        brush.fillRect(0, 0, TetrisGame.GAME_WIDTH, TetrisGame.GAME_HEIGHT);
+
         blockGrid.draw(brush);
         activePiece.draw(brush);
 
@@ -125,6 +129,12 @@ public class GamePanel extends JPanel
             brush.drawString("Game Over", 35, 200);
         else if (paused)
             brush.drawString("Paused", 50, 200);
+
+        brush.setColor(Color.LIGHT_GRAY);
+        brush.fillRect(gridX + gridWidth * TetrisPiece.BLOCK_WIDTH, 0,
+                       TetrisGame.GAME_WIDTH - gridWidth * TetrisPiece.BLOCK_WIDTH, 50);
+        brush.setColor(Color.BLACK);
+        brush.drawString("TETRIS", TetrisGame.GAME_WIDTH - 120, 32);
 
     }
 }

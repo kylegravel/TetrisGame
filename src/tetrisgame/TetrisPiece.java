@@ -20,6 +20,14 @@ public class TetrisPiece {
     private Color color;
 
     private static Random randomNum = new Random();
+
+    private static final Color[] pieceColors = {
+        Color.BLUE,
+        Color.GREEN,
+        Color.RED,
+        Color.CYAN,
+        Color.ORANGE
+    };
     
     /*
      * createRandomPiece
@@ -29,9 +37,8 @@ public class TetrisPiece {
      */
     public static TetrisPiece createRandomPiece(int startingLocation)
     {
-        TetrisPiece randomPiece = new TetrisPiece(0, 0, new Color(randomNum.nextInt(256),
-                                                                  randomNum.nextInt(256),
-                                                                  randomNum.nextInt(256)));
+        TetrisPiece randomPiece = new TetrisPiece(0, 0, pieceColors[randomNum.nextInt(5)]);
+
         int pieceNumber = randomNum.nextInt(7);		//Random number generator to select pieces 1-7 
 
         switch (pieceNumber)
