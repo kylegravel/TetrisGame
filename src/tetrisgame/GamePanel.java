@@ -28,7 +28,10 @@ public class GamePanel extends JPanel
         setFocusable(true);
         activePiece = TetrisPiece.createRandomPiece(gridWidth/2);
         blockGrid = new BlockGrid(gridWidth, gridHeight, gridX, gridY);
-
+        
+        this.requestFocusInWindow();
+        this.validate();
+        
         addKeyListener(new KeyListener()
         {
             @Override
@@ -90,6 +93,8 @@ public class GamePanel extends JPanel
          });
 
         fallTimer.start();		//start on start of application
+        
+        
     }
     
     

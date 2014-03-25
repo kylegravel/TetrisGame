@@ -1,23 +1,23 @@
 package tetrisgame;
 
 import javax.swing.*;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+
+import javax.swing.*;
 
 public class TetrisPanel extends JPanel {
 	
 	private JButton start;
+	private JLabel instructions;
 		
-	public TetrisPanel() {
+	public TetrisPanel(final TetrisGame  app) {
 		
-		super(new GridLayout(2,0));
-		
-		//Tetris Panel
-		//Adds Start, Instruction, switches to game panel upon start
-		JPanel tetrisPanel = new JPanel(new BorderLayout());	    
-	    
-		JPanel center = new JPanel();  //GamePanel
-		JPanel south = new JPanel();	//StartButton
+		super(new BorderLayout());	
+	
 		
 		//Start Button
 		start = new JButton ("Start");		
@@ -25,20 +25,29 @@ public class TetrisPanel extends JPanel {
 	    start.setMnemonic(KeyEvent.VK_D); 
 	    start.setActionCommand("disable");
 	    
-	    //add start button to south panel 
-	    south.add(start);
-		//Add gamePanel to center panel
-	    center.add(new GamePanel());
-	    //Add center and south panels to tetrisPanel
-	    tetrisPanel.add(center, BorderLayout.CENTER);
-	    tetrisPanel.add(south, BorderLayout.SOUTH);
-	    //Add tetris panel to frame
-        add(tetrisPanel);
+	    //Instruction JLabel
+	    instructions = new JLabel ("Instructions!");
+	    instructions.setVerticalTextPosition(AbstractButton.CENTER);
+	    instructions.setHorizontalTextPosition(AbstractButton.CENTER);
+	    
+	    start.addActionListener(new ActionListener() {
+	    	
+			public void actionPerformed(ActionEvent e) {   
+				app.addGamePanel();
+				//repaint();
+				
+			}
+			
+	    });
+	    
+	     
+	    this.add(instructions, BorderLayout.CENTER);
+	    this.add(start, BorderLayout.SOUTH);
+
         
-        this.setFocusable(true);
-        this.setVisible(true);
- 
         
 	}
+	
+	
 	
 }
