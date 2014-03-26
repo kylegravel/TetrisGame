@@ -28,19 +28,28 @@ public class TetrisGame extends JFrame
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.pack();
         this.setVisible(true);
+        
     }
+    
+    /*
+     * called inside of TetrisPanel
+     * 
+     * Adds GamePanel to the TetrisPanel which replaces start button and 
+     * instruction JLabel
+     */
     public void addGamePanel(){
     	
-    	this.remove(tetrisPanel);
-    	this.revalidate();
+    	this.remove(tetrisPanel);	
+    	this.revalidate();	
     	//setFocusable(false);
     	this.add(gamePanel);
-    	gamePanel.requestFocus();
+    	gamePanel.requestFocus();		//Sets focus back to gamePanel
     	//setFocusable(true);
     	
-    	this.revalidate();
-    	repaint();
+    	this.revalidate();			//Revalidate
+    	repaint();				//Repaint
     }
+    
     public static void main(String[] args)
     {
         new TetrisGame();

@@ -140,6 +140,8 @@ public class GamePanel extends JPanel
                        TetrisGame.GAME_WIDTH - gridWidth * TetrisPiece.BLOCK_WIDTH, 50);
         brush.setColor(Color.BLACK);
         brush.drawString("TETRIS", TetrisGame.GAME_WIDTH - 120, 32);
+        brush.setColor(Color.RED);
+        brush.drawString("Score ", TetrisGame.GAME_WIDTH - 120, 100);
 
     }
 }
