@@ -100,7 +100,7 @@ public class BlockGrid
                 removeRow(row);
     }
 
-    private boolean rowIsFull(int row)
+    public boolean rowIsFull(int row)
     {
         return numberOfBlocksInRow(row) == width;
     }

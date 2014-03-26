@@ -22,6 +22,9 @@ public class GamePanel extends JPanel
     private boolean paused = false;
 
     private Timer fallTimer;
+    private int score = 0;
+    private int rowPoints = 100;
+    
 
     public GamePanel()
     {
@@ -117,6 +120,31 @@ public class GamePanel extends JPanel
             if (fallDelay > 50) fallDelay -= 4;
         }
     }
+    
+    public int updateScore() {
+    	
+    	if (blockGrid.rowIsFull(1)) {
+    		score = score + rowPoints;
+    		System.out.println(score);
+    		repaint();
+    	} else if (blockGrid.rowIsFull(2)) {
+    		score = score + (rowPoints * 2 + 50);
+    		System.out.println(score);
+    		repaint();
+    		
+    	} else if (blockGrid.rowIsFull(3)) {
+    		score = score + (rowPoints * 3 + 100);
+    		System.out.println(score);
+    		repaint();
+    		
+    	} else if (blockGrid.rowIsFull(4)) {
+    		score = score + (rowPoints * 4 + 200);
+    		System.out.println(score);
+    		repaint();
+    		
+    	}
+    	return score;
+    }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -127,7 +155,7 @@ public class GamePanel extends JPanel
 
         blockGrid.draw(brush);
         activePiece.draw(brush);
-
+        
         brush.setColor(Color.WHITE);
         brush.setFont(new Font("arial", Font.BOLD, 25));
         if (gameOver)
@@ -140,8 +168,10 @@ public class GamePanel extends JPanel
                        TetrisGame.GAME_WIDTH - gridWidth * TetrisPiece.BLOCK_WIDTH, 50);
         brush.setColor(Color.BLACK);
         brush.drawString("TETRIS", TetrisGame.GAME_WIDTH - 120, 32);
+        brush.setFont(new Font("arial", Font.PLAIN, 20));
         brush.setColor(Color.RED);
-        brush.drawString("Score ", TetrisGame.GAME_WIDTH - 120, 100);
+        brush.drawString("Score " + score, TetrisGame.GAME_WIDTH - 120, 100);
+        
 
     }
 }

@@ -10,7 +10,7 @@ public class TetrisGame extends JFrame
                             GAME_HEIGHT = 400;
     
     JPanel tetrisPanel = new TetrisPanel(this);
-    JPanel gamePanel = new GamePanel();
+    JPanel gamePanel;
     
     public TetrisGame()
     {
@@ -42,11 +42,11 @@ public class TetrisGame extends JFrame
     	this.remove(tetrisPanel);	
     	this.revalidate();	
     	//setFocusable(false);
-    	this.add(gamePanel);
+    	this.add(gamePanel = new GamePanel());
     	gamePanel.requestFocus();		//Sets focus back to gamePanel
     	//setFocusable(true);
     	
-    	this.revalidate();			//Revalidate
+    	this.revalidate();			//Re-validate
     	repaint();				//Repaint
     }
     
