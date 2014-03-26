@@ -24,6 +24,7 @@ public class GamePanel extends JPanel
     private Timer fallTimer;
     private int score = 0;
     private int rowPoints = 100;
+   
     
 
     public GamePanel()
@@ -106,6 +107,8 @@ public class GamePanel extends JPanel
         if (activePiece.checkBottomCollision(blockGrid)) {	//Defined in tetrisPiece class, boolean value if
             activePiece.translate(0, -1);
             activePiece.transferToGrid(blockGrid);
+            //Add in update score here
+            updateScore();
             blockGrid.removeFullRows();
 
             activePiece = TetrisPiece.createRandomPiece(gridWidth/2);
@@ -123,26 +126,29 @@ public class GamePanel extends JPanel
     
     public int updateScore() {
     	
-    	if (blockGrid.rowIsFull(0) == true) {
+    	int counter = 0;
+    	for (int row = 0; row < getHeight(); row++)
+    		
+    		if (blockGrid.rowIsFull(row)) {          	
+            	counter ++;
+    			//System.out.println(score);
+            	System.out.println(counter);
+    		} 
+    	
+    	if (counter == 1) {
     		score = score + rowPoints;
-    		System.out.println(score);
     		repaint();
-    	} else if (blockGrid.rowIsFull(1) == true) {
+    	} else if (counter == 2) {
     		score = score + (rowPoints * 2 + 50);
-    		System.out.println(score);
     		repaint();
-    		
-    	} else if (blockGrid.rowIsFull(2) == true) {
+    	} else if (counter == 3) {
     		score = score + (rowPoints * 3 + 100);
-    		System.out.println(score);
     		repaint();
-    		
-    	} else if (blockGrid.rowIsFull(3) == true) {
-    		score = score + (rowPoints * 4 + 200);
-    		System.out.println(score);
+    	} else if (counter >= 4) {
+    		score = score + (rowPoints * 4 + 150);
     		repaint();
-    		
     	}
+    	
     	return score;
     }
 
@@ -170,7 +176,7 @@ public class GamePanel extends JPanel
         brush.drawString("TETRIS", TetrisGame.GAME_WIDTH - 120, 32);
         brush.setFont(new Font("arial", Font.PLAIN, 20));
         brush.setColor(Color.RED);
-        brush.drawString("Score " + score, TetrisGame.GAME_WIDTH - 120, 100);
+        brush.drawString("Score " + updateScore(), TetrisGame.GAME_WIDTH - 120, 100);
         
 
     }
