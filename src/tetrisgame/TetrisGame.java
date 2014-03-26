@@ -9,8 +9,8 @@ public class TetrisGame extends JFrame
     public static final int GAME_WIDTH  = 350,
                             GAME_HEIGHT = 400;
     
-    JPanel tetrisPanel = new TetrisPanel(this);
-    JPanel gamePanel;
+    JPanel tetrisPanel = new TetrisPanel(this);	//Create instance of tetrisPanel
+    JPanel gamePanel;		//Instantiate upon pressing start
     
     public TetrisGame()
     {
@@ -18,13 +18,10 @@ public class TetrisGame extends JFrame
 
         this.setBackground(java.awt.Color.white);
         this.setPreferredSize(new java.awt.Dimension(GAME_WIDTH, GAME_HEIGHT));
-        this.setSize(new java.awt.Dimension(GAME_WIDTH, GAME_HEIGHT));
-
-       
-        
+        this.setSize(new java.awt.Dimension(GAME_WIDTH, GAME_HEIGHT));      
+        //Add tetrisPanel to frame
         this.add(tetrisPanel);
-       // tetrisPanel.requestFocusInWindow();
-       // tetrisPanel.validate();
+ 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.pack();
         this.setVisible(true);
@@ -39,13 +36,12 @@ public class TetrisGame extends JFrame
      */
     public void addGamePanel(){
     	
+    	//Remove tetrisPanel
     	this.remove(tetrisPanel);	
     	this.revalidate();	
-    	//setFocusable(false);
-    	this.add(gamePanel = new GamePanel());
-    	gamePanel.requestFocus();		//Sets focus back to gamePanel
-    	//setFocusable(true);
-    	
+    	//Add a new instance of gamePanel
+    	this.add(gamePanel = new GamePanel());	//Timer starts upon start
+    	gamePanel.requestFocus();		//Sets focus back to gamePanel 	
     	this.revalidate();			//Re-validate
     	repaint();				//Repaint
     }
