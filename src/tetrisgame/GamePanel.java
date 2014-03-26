@@ -123,21 +123,21 @@ public class GamePanel extends JPanel
     
     public int updateScore() {
     	
-    	if (blockGrid.rowIsFull(1)) {
+    	if (blockGrid.rowIsFull(0) == true) {
     		score = score + rowPoints;
     		System.out.println(score);
     		repaint();
-    	} else if (blockGrid.rowIsFull(2)) {
+    	} else if (blockGrid.rowIsFull(1) == true) {
     		score = score + (rowPoints * 2 + 50);
     		System.out.println(score);
     		repaint();
     		
-    	} else if (blockGrid.rowIsFull(3)) {
+    	} else if (blockGrid.rowIsFull(2) == true) {
     		score = score + (rowPoints * 3 + 100);
     		System.out.println(score);
     		repaint();
     		
-    	} else if (blockGrid.rowIsFull(4)) {
+    	} else if (blockGrid.rowIsFull(3) == true) {
     		score = score + (rowPoints * 4 + 200);
     		System.out.println(score);
     		repaint();
