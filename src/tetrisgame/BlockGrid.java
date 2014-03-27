@@ -12,7 +12,7 @@ public class BlockGrid
     private int drawX;
     private int drawY;
 
-    //Array of inactive tetris blocks
+    // Inactive tetris blocks
     private ArrayList<Block> blocks;
 
     public BlockGrid(int width, int height, int drawX, int drawY)
@@ -44,7 +44,6 @@ public class BlockGrid
         return drawY;
     }
 
-    // Determine is space is active
     public boolean isBlockHere(int x, int y)
     {
         // If block does not lie within bounds
@@ -83,7 +82,6 @@ public class BlockGrid
         }
     }
 
-    //Remove a full row
     public void removeRow(int rowToRemove)
     {
         // Clear row
@@ -155,6 +153,6 @@ public class BlockGrid
         public void dropOnce()
         {
             this.y++;
-        }    //Drop once by adding 1 row to the y
+        }
     }
 }

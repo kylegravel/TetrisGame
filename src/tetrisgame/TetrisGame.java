@@ -6,8 +6,8 @@ import javax.swing.*;
 
 public class TetrisGame extends JFrame
 {
-    public static final int GAME_WIDTH = 350,
-            GAME_HEIGHT = 400;
+    public static final int GAME_WIDTH  = 350;
+    public static final int GAME_HEIGHT = 400;
 
     JPanel tetrisPanel = new TetrisPanel(this);
     JPanel gamePanel; // Instantiate upon pressing start
@@ -49,5 +49,4 @@ public class TetrisGame extends JFrame
     {
         new TetrisGame();
     }
-
 }

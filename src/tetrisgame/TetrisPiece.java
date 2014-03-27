@@ -6,9 +6,23 @@ import java.util.Random;
 
 public class TetrisPiece
 {
-
     public static final int NUMBER_OF_BLOCKS_IN_PIECE = 4;
     public static final int BLOCK_WIDTH = 10, BLOCK_HEIGHT = 10;
+
+    private static final Color[] pieceColors = {
+            Color.BLUE,
+            Color.GREEN,
+            Color.RED,
+            Color.CYAN,
+            Color.ORANGE
+    };
+
+    private static final int
+        TYPE_I = 0,
+        TYPE_O = 1,
+        TYPE_S = 2,
+        TYPE_Z = 3,
+        TYPE_L = 4;
 
     private int centerX = 0;
     private int centerY = 0;
@@ -22,16 +36,6 @@ public class TetrisPiece
 
     private static Random randomNum = new Random();
 
-    private static final Color[] pieceColors = {
-            Color.BLUE,
-            Color.GREEN,
-            Color.RED,
-            Color.CYAN,
-            Color.ORANGE
-    };
-
-    private static final int PIECE_I = 0, PIECE_O = 1, PIECE_S = 2, PIECE_Z = 3, PIECE_L = 4;
-
     /*
      * createRandomPiece
      * 
@@ -42,9 +46,11 @@ public class TetrisPiece
     {
         TetrisPiece randomPiece = new TetrisPiece(0, 0, pieceColors[randomNum.nextInt(5)]);
 
-        int pieceNumber = randomNum.nextInt(7);        //Random number generator to select pieces 1-7
+        randomPiece.xPos = startingLocation;
 
-        switch (pieceNumber) {
+        int pieceType = randomNum.nextInt(7);
+
+        switch (pieceType) {
             case 0:
                 randomPiece.centerX = 0;
                 randomPiece.centerY = 1;
@@ -132,12 +138,9 @@ public class TetrisPiece
                 break;
         }
 
-        randomPiece.xPos = startingLocation;
-
         return randomPiece;
     }
 
-    //TetrisPiece constructor
     public TetrisPiece(int xPos, int yPos, Color color)
     {
         this.xPos = xPos;
@@ -145,13 +148,11 @@ public class TetrisPiece
         this.color = color;
     }
 
-    //Helper method used to return the private variable x
     public int getX()
     {
         return xPos;
     }
 
-    //Helper method used to return the private variable y
     public int getY()
     {
         return yPos;

@@ -109,8 +109,6 @@ public class GamePanel extends JPanel
         });
 
         fallTimer.start();
-
-
     }
 
 
@@ -202,7 +200,5 @@ public class GamePanel extends JPanel
         brush.setFont(new Font("arial", Font.PLAIN, 20));
         brush.setColor(Color.RED);
         brush.drawString("Score " + updateScore(), TetrisGame.GAME_WIDTH - 120, 100);    //Score
-
-
     }
 }
