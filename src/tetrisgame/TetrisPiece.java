@@ -19,7 +19,7 @@ public class TetrisPiece {
 
     private Color color;
 
-    private static Random randomNum = new Random();
+    private static Random randomNum = new Random();		//Random number generator used to create random tetris piece
 
     private static final Color[] pieceColors = {
         Color.BLUE,
@@ -130,7 +130,7 @@ public class TetrisPiece {
                 break;
         }
 
-        randomPiece.xPos = startingLocation;
+        randomPiece.xPos = startingLocation;	//Sets starting location to xPos
 
         return randomPiece;
     }

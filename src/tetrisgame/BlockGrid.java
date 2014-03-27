@@ -24,25 +24,25 @@ public class BlockGrid
         blocks = new ArrayList<Block>();
     }
     
-    //Return height of blockGrid
+    //Getters
     public int getHeight()
     {
         return height;
     }
     
-    //Return width of blockGrid
+   
     public int getWidth()
     {
         return width;
     }
     
-    //Get current x on blockGrid
+    
     public int getX()
     {
         return drawX;
     }
     
-    //Get current y on blockGrid
+    
     public int getY()
     {
         return drawY;
@@ -91,7 +91,7 @@ public class BlockGrid
     public void removeRow(int rowToRemove)
     {
         // Clear row
-        Iterator<Block> it = blocks.iterator();		//Iterator pattern to remove all blocks in full row
+        Iterator<Block> it = blocks.iterator();		//Iterator to remove all blocks in full row
         while (it.hasNext()) {	
             Block block = it.next();	//sets next block in array to next
             if (block.getY() == rowToRemove)
@@ -122,10 +122,10 @@ public class BlockGrid
     //Returns an integer with how many blocks are in the row
     private int numberOfBlocksInRow(int row)
     {
-        int count = 0;	//sets original count to 0
+        int count = 0;	
         for (Block block : blocks)
-            if (block.getY() == row)		//if block is in a Y
-                count++;		//Add to count
+            if (block.getY() == row)		
+                count++;		//Add to count if block falls in row
         return count;
     }
     

@@ -1,7 +1,5 @@
 package tetrisgame;
 
-import java.awt.event.KeyListener;
-
 import javax.swing.*;
 
 public class TetrisGame extends JFrame
@@ -42,8 +40,8 @@ public class TetrisGame extends JFrame
     	//Add a new instance of gamePanel
     	this.add(gamePanel = new GamePanel());	//Timer starts upon start
     	gamePanel.requestFocus();		//Sets focus back to gamePanel 	
-    	this.revalidate();			//Re-validate
-    	repaint();				//Repaint
+    	this.revalidate();			
+    	repaint();				
     }
     
     public static void main(String[] args)
