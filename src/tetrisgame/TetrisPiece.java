@@ -4,7 +4,8 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.Random;
 
-public class TetrisPiece {
+public class TetrisPiece
+{
 
     public static final int NUMBER_OF_BLOCKS_IN_PIECE = 4;
     public static final int BLOCK_WIDTH = 10, BLOCK_HEIGHT = 10;
@@ -22,13 +23,15 @@ public class TetrisPiece {
     private static Random randomNum = new Random();		//Random number generator used to create random tetris piece
 
     private static final Color[] pieceColors = {
-        Color.BLUE,
-        Color.GREEN,
-        Color.RED,
-        Color.CYAN,
-        Color.ORANGE
+            Color.BLUE,
+            Color.GREEN,
+            Color.RED,
+            Color.CYAN,
+            Color.ORANGE
     };
-    
+
+    private static final int PIECE_I = 0, PIECE_O = 1, PIECE_S = 2, PIECE_Z = 3, PIECE_L = 4;
+
     /*
      * createRandomPiece
      * 
@@ -39,10 +42,9 @@ public class TetrisPiece {
     {
         TetrisPiece randomPiece = new TetrisPiece(0, 0, pieceColors[randomNum.nextInt(5)]);
 
-        int pieceNumber = randomNum.nextInt(7);		//Random number generator to select pieces 1-7 
+        int pieceNumber = randomNum.nextInt(7);        //Random number generator to select pieces 1-7
 
-        switch (pieceNumber)
-        {
+        switch (pieceNumber) {
             case 0:
                 randomPiece.centerX = 0;
                 randomPiece.centerY = 1;
@@ -134,21 +136,21 @@ public class TetrisPiece {
 
         return randomPiece;
     }
-    
+
     //TetrisPiece constructor
-	public TetrisPiece(int xPos, int yPos, Color color)
+    public TetrisPiece(int xPos, int yPos, Color color)
     {
         this.xPos = xPos;
         this.yPos = yPos;
         this.color = color;
-	}
-	
-	//Helper method used to return the private variable x
+    }
+
+    //Helper method used to return the private variable x
     public int getX()
     {
         return xPos;
     }
-    
+
     //Helper method used to return the private variable y
     public int getY()
     {
@@ -163,14 +165,14 @@ public class TetrisPiece {
 
     public void rotateCounterClockwise()
     {
-        for (int i=0; i<NUMBER_OF_BLOCKS_IN_PIECE; i++) {
+        for (int i = 0; i < NUMBER_OF_BLOCKS_IN_PIECE; i++) {
             int newPositionX = centerX - centerY + shapeY[i];
             int newPositionY = centerX + centerY - shapeX[i];
             shapeX[i] = newPositionX;
             shapeY[i] = newPositionY;
         }
     }
-    
+
     /*
      * transferToGrid
      * 
@@ -179,11 +181,11 @@ public class TetrisPiece {
      */
     public void transferToGrid(BlockGrid blockGrid)
     {
-        for (int i=0; i<NUMBER_OF_BLOCKS_IN_PIECE; i++) {
+        for (int i = 0; i < NUMBER_OF_BLOCKS_IN_PIECE; i++) {
             blockGrid.placeBlock(xPos + shapeX[i], yPos + shapeY[i], color);
         }
     }
-    
+
     /*
      * checkBottomCollision
      * 
@@ -194,24 +196,24 @@ public class TetrisPiece {
      */
     public boolean checkBottomCollision(BlockGrid blockGrid)
     {
-        for (int i=0; i<NUMBER_OF_BLOCKS_IN_PIECE; i++)
+        for (int i = 0; i < NUMBER_OF_BLOCKS_IN_PIECE; i++)
             if (blockGrid.isBlockHere(xPos + shapeX[i], yPos + shapeY[i])
-            || (yPos + shapeY[i] >= blockGrid.getHeight()))
+                || (yPos + shapeY[i] >= blockGrid.getHeight()))
                 return true;
         return false;
     }
-    
+
     /*
      * checkSideCollision
      * 
      * Boolean value assigned if Tetris piece tries to leave the horizontal
      * bounds of the screen
-     */  		
+     */
     public boolean checkSideCollision(BlockGrid blockGrid)
     {
-        for (int i=0; i<NUMBER_OF_BLOCKS_IN_PIECE; i++)
+        for (int i = 0; i < NUMBER_OF_BLOCKS_IN_PIECE; i++)
             if ((xPos + shapeX[i] >= blockGrid.getWidth())
-            || ((xPos + shapeX[i] < blockGrid.getX())))
+                || ((xPos + shapeX[i] < blockGrid.getX())))
                 return true;
         return false;
     }
@@ -223,10 +225,10 @@ public class TetrisPiece {
 
     public void draw(Graphics2D g2)
     {
-        for (int i=0; i<NUMBER_OF_BLOCKS_IN_PIECE; i++) {
+        for (int i = 0; i < NUMBER_OF_BLOCKS_IN_PIECE; i++) {
             g2.setColor(color);
-            g2.fill(new Rectangle2D.Double((xPos)*BLOCK_WIDTH + shapeX[i]*BLOCK_WIDTH,
-                                           (yPos)*BLOCK_WIDTH + shapeY[i]*BLOCK_HEIGHT,
+            g2.fill(new Rectangle2D.Double((xPos) * BLOCK_WIDTH + shapeX[i] * BLOCK_WIDTH,
+                                           (yPos) * BLOCK_WIDTH + shapeY[i] * BLOCK_HEIGHT,
                                            BLOCK_WIDTH, BLOCK_HEIGHT));
 
         }

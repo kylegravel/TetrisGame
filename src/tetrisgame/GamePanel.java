@@ -10,8 +10,8 @@ import java.awt.event.KeyListener;
 
 public class GamePanel extends JPanel
 {
-    TetrisPiece activePiece;		//Piece currently in play
-    BlockGrid blockGrid;		//Inactive piece array
+    TetrisPiece activePiece; // Piece currently in play
+    BlockGrid blockGrid; // Inactive block array
 
     private int fallDelay = 500; // milliseconds
 
@@ -20,19 +20,18 @@ public class GamePanel extends JPanel
 
     private boolean gameOver = false;
     private boolean paused = false;
-    
-    private Timer fallTimer;	//Timer used to drop tetris piece
-    private int score = 0;		//Start Score at 0
-    private int rowPoints = 100;	//Points per row being cleared
-   
-    
+
+    private Timer fallTimer;  // Timer used to drop tetris piece
+    private int score = 0;
+    private int rowPoints = 100;  // Points per row being cleared
+
 
     public GamePanel()
     {
         setFocusable(true);
-        activePiece = TetrisPiece.createRandomPiece(gridWidth/2);
+        activePiece = TetrisPiece.createRandomPiece(gridWidth / 2);
         blockGrid = new BlockGrid(gridWidth, gridHeight, gridX, gridY);
-        
+
         this.requestFocusInWindow();
         this.validate();
         
@@ -56,72 +55,74 @@ public class GamePanel extends JPanel
             @Override
             public void keyPressed(KeyEvent e)
             {
-                if (gameOver) return;		
+                if (gameOver) return;
 
-                int keyPressed = e.getKeyCode();		//Get user input key 
+                int keyPressed = e.getKeyCode();
 
                 if (keyPressed == KeyEvent.VK_P) {
-                    if (paused)			//if paused == true
+                    if (paused)
                         fallTimer.restart();
                     else fallTimer.stop();
 
-                    paused = !paused;		//set pause back to false
+                    paused = !paused;
                 }
 
                 if (!paused) {
                     if (keyPressed == KeyEvent.VK_SPACE) {
                         activePiece.rotateCounterClockwise();
-                        if (activePiece.checkAnyCollision(blockGrid))	//Check to see if active piece collides with piece on grid
+                        // Check to see if active piece collides with piece on grid
+                        if (activePiece.checkAnyCollision(blockGrid))
                             // Return to original rotation
-                            for (int i=0; i<3; i++)		//If collides with another piece, rotate back to original position
+                            for (int i = 0; i < 3; i++)
                                 activePiece.rotateCounterClockwise();
                     } else if (keyPressed == KeyEvent.VK_LEFT) {
                         activePiece.translate(-1, 0);
-                        if (activePiece.checkAnyCollision(blockGrid))		//Check collision
+                        if (activePiece.checkAnyCollision(blockGrid))
                             activePiece.translate(1, 0);
                     } else if (keyPressed == KeyEvent.VK_RIGHT) {
                         activePiece.translate(1, 0);
-                        if (activePiece.checkAnyCollision(blockGrid))		//check collision
+                        if (activePiece.checkAnyCollision(blockGrid))
                             activePiece.translate(-1, 0);
                     } else if (keyPressed == KeyEvent.VK_DOWN)
                         activePiece.translate(0, 1);
 
-                    addPieceToGridIfAtBottom();		//Once piece cannot move down any further
+                    addPieceToGridIfAtBottom(); // Once piece cannot move down any further
                 }
 
-                repaint();	
+                repaint();
             }
 
             public void keyReleased(KeyEvent e)
             {
             }
         });
-        
-        //Setting Timer
-        fallTimer = new Timer(fallDelay, new ActionListener() {
-      	   public void actionPerformed(ActionEvent e) {
-               activePiece.translate(0, 1);
-               addPieceToGridIfAtBottom();		//If piece hits bottom with timer, add to grid
-      		   repaint();
-             }
-         });
 
-        fallTimer.start();		//start on start of application
-        
-        
+        //Setting Timer
+        fallTimer = new Timer(fallDelay, new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                activePiece.translate(0, 1);
+                addPieceToGridIfAtBottom();
+                repaint();
+            }
+        });
+
+        fallTimer.start();
+
+
     }
-    
-    
+
+
     public void addPieceToGridIfAtBottom()
     {
-        if (activePiece.checkBottomCollision(blockGrid)) {	//Defined in tetrisPiece class, boolean value if
+        if (activePiece.checkBottomCollision(blockGrid)) {
             activePiece.translate(0, -1);
-            activePiece.transferToGrid(blockGrid);	//Adds tetris blocks to block grid class
-            //Add in update score here
-            updateScore();		//method adds to score from counter
-            blockGrid.removeFullRows();		//remove rows and drop piece down 1
+            activePiece.transferToGrid(blockGrid);
+            updateScore(); // method adds to score from counter
+            blockGrid.removeFullRows();
 
-            activePiece = TetrisPiece.createRandomPiece(gridWidth/2);
+            activePiece = TetrisPiece.createRandomPiece(gridWidth / 2);
             if (activePiece.checkBottomCollision(blockGrid)) {
                 while (activePiece.checkBottomCollision(blockGrid))
                     activePiece.translate(0, -1);
@@ -133,7 +134,7 @@ public class GamePanel extends JPanel
             if (fallDelay > 50) fallDelay -= 4;
         }
     }
-    
+
     /*
      * updateScore
      * 
@@ -145,61 +146,63 @@ public class GamePanel extends JPanel
      * 3 Rows: 400 Points
      * 4 Rows: 550 Points
      */
-    public int updateScore() {
-    	
-    	int counter = 0;
-    	for (int row = 0; row < getHeight(); row++)		//Loop through all rows on the grid
-    		
-    		if (blockGrid.rowIsFull(row)) {          	
-            	counter ++;		//If a row is full, increment by 1 on the counter
-            	System.out.println(counter);	//For debugging purposes
-    		} 
-    	
-    	if (counter == 1) {		//1 Row is cleared
-    		score = score + rowPoints;
-    		repaint();
-    	} else if (counter == 2) {		//2 Rows are cleared
-    		score = score + (rowPoints * 2 + 50);
-    		repaint();
-    	} else if (counter == 3) {		//3 Rows are cleared
-    		score = score + (rowPoints * 3 + 100);
-    		repaint();
-    	} else if (counter >= 4) {		//4 Rows are cleared
-    		score = score + (rowPoints * 4 + 150);
-    		repaint();
-    	}
-    	
-    	return score;		//return score
+    public int updateScore()
+    {
+
+        int rowsCleared = 0;
+        for (int row = 0; row < getHeight(); row++)
+
+            if (blockGrid.rowIsFull(row)) {
+                rowsCleared++;
+                System.out.println(rowsCleared); // For debugging purposes
+            }
+
+        if (rowsCleared == 1) {
+            score = score + rowPoints;
+            repaint();
+        } else if (rowsCleared == 2) {
+            score = score + (rowPoints * 2 + 50);
+            repaint();
+        } else if (rowsCleared == 3) {
+            score = score + (rowPoints * 3 + 100);
+            repaint();
+        } else if (rowsCleared >= 4) {
+            score = score + (rowPoints * 4 + 150);
+            repaint();
+        }
+
+        return score;
     }
 
-    public void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g)
+    {
         super.paintComponent(g);
         Graphics2D brush = (Graphics2D) g;
 
         brush.setColor(Color.WHITE);
         brush.fillRect(0, 0, TetrisGame.GAME_WIDTH, TetrisGame.GAME_HEIGHT);
 
-        blockGrid.draw(brush);		//draw blockGrid
-        activePiece.draw(brush);	//draw active piece
-        
+        blockGrid.draw(brush);
+        activePiece.draw(brush);
+
         brush.setColor(Color.WHITE);
-        brush.setFont(new Font("arial", Font.BOLD, 25));	//Set font for Game Over and Pause
+        brush.setFont(new Font("arial", Font.BOLD, 25)); // Font for Game Over and Pause
         if (gameOver)
             brush.drawString("Game Over", 35, 200);
         else if (paused)
             brush.drawString("Paused", 50, 200);
-        
+
         //Right side of Tetris Frame
         //Holds Title and score
         brush.setColor(Color.LIGHT_GRAY);
         brush.fillRect(gridX + gridWidth * TetrisPiece.BLOCK_WIDTH, 0,
                        TetrisGame.GAME_WIDTH - gridWidth * TetrisPiece.BLOCK_WIDTH, 50);
         brush.setColor(Color.BLACK);
-        brush.drawString("TETRIS", TetrisGame.GAME_WIDTH - 120, 32);	//Title
+        brush.drawString("TETRIS", TetrisGame.GAME_WIDTH - 120, 32);    //Title
         brush.setFont(new Font("arial", Font.PLAIN, 20));
         brush.setColor(Color.RED);
-        brush.drawString("Score " + updateScore(), TetrisGame.GAME_WIDTH - 120, 100);	//Score
-        
+        brush.drawString("Score " + updateScore(), TetrisGame.GAME_WIDTH - 120, 100);    //Score
+
 
     }
 }
