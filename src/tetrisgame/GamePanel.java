@@ -11,12 +11,20 @@ import java.awt.event.KeyListener;
 public class GamePanel extends JPanel
 {
     TetrisPiece activePiece; // Piece currently in play
-    BlockGrid blockGrid; // Inactive block array
+    TetrisPiece nextPiece;
 
-    private int fallDelay = 500; // milliseconds
+    BlockGrid blockGrid; // Inactive block array
 
     private final int gridX = 0, gridY = 0;
     private final int gridWidth = 20, gridHeight = 37;
+
+    private final int ACTIVE_PIECE_START_X = gridWidth / 2;
+    private final int ACTIVE_PIECE_START_Y = 0;
+    private final int NEXT_PIECE_START_X = 26;
+    private final int NEXT_PIECE_START_Y = 12;
+
+
+    private int fallDelay = 500; // milliseconds
 
     private boolean gameOver = false;
     private boolean paused = false;
@@ -25,11 +33,13 @@ public class GamePanel extends JPanel
     private int score = 0;
     private int rowPoints = 100;  // Points per row being cleared
 
-
     public GamePanel()
     {
         setFocusable(true);
-        activePiece = TetrisPiece.createRandomPiece(gridWidth / 2);
+
+        activePiece = TetrisPiece.createRandomPiece(ACTIVE_PIECE_START_X, ACTIVE_PIECE_START_Y);
+        nextPiece   = TetrisPiece.createRandomPiece(NEXT_PIECE_START_X, NEXT_PIECE_START_Y);
+
         blockGrid = new BlockGrid(gridWidth, gridHeight, gridX, gridY);
 
         this.requestFocusInWindow();
@@ -120,7 +130,12 @@ public class GamePanel extends JPanel
             updateScore(); // method adds to score from counter
             blockGrid.removeFullRows();
 
-            activePiece = TetrisPiece.createRandomPiece(gridWidth / 2);
+            // activePiece = TetrisPiece.createRandomPiece(gridWidth / 2, 0);
+
+            activePiece = nextPiece;
+            activePiece.setLocation(ACTIVE_PIECE_START_X, ACTIVE_PIECE_START_Y);
+            nextPiece = TetrisPiece.createRandomPiece(NEXT_PIECE_START_X, NEXT_PIECE_START_Y);
+
             if (activePiece.checkBottomCollision(blockGrid)) {
                 while (activePiece.checkBottomCollision(blockGrid))
                     activePiece.translate(0, -1);
@@ -146,13 +161,11 @@ public class GamePanel extends JPanel
      */
     public int updateScore()
     {
-
         int rowsCleared = 0;
         for (int row = 0; row < getHeight(); row++)
 
             if (blockGrid.rowIsFull(row)) {
                 rowsCleared++;
-                System.out.println(rowsCleared); // For debugging purposes
             }
 
         if (rowsCleared == 1) {
@@ -190,15 +203,19 @@ public class GamePanel extends JPanel
         else if (paused)
             brush.drawString("Paused", 50, 200);
 
-        //Right side of Tetris Frame
-        //Holds Title and score
+        // Right side of Tetris Frame
+        // Holds Title and score
         brush.setColor(Color.LIGHT_GRAY);
         brush.fillRect(gridX + gridWidth * TetrisPiece.BLOCK_WIDTH, 0,
                        TetrisGame.GAME_WIDTH - gridWidth * TetrisPiece.BLOCK_WIDTH, 50);
         brush.setColor(Color.BLACK);
-        brush.drawString("TETRIS", TetrisGame.GAME_WIDTH - 120, 32);    //Title
+        brush.drawString("TETRIS", TetrisGame.GAME_WIDTH - 124, 34);
         brush.setFont(new Font("arial", Font.PLAIN, 20));
         brush.setColor(Color.RED);
-        brush.drawString("Score " + updateScore(), TetrisGame.GAME_WIDTH - 120, 100);    //Score
+        brush.drawString("Score: " + updateScore(), TetrisGame.GAME_WIDTH - 142, 75);
+
+        brush.drawRect(gridX + gridWidth * TetrisPiece.BLOCK_WIDTH + 5, 55,
+                       TetrisGame.GAME_WIDTH - gridWidth * TetrisPiece.BLOCK_WIDTH - 20, 25);
+        nextPiece.draw(brush);
     }
 }

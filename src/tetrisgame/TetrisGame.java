@@ -1,7 +1,5 @@
 package tetrisgame;
 
-import java.awt.event.KeyListener;
-
 import javax.swing.*;
 
 public class TetrisGame extends JFrame

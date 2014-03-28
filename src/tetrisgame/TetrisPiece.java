@@ -34,7 +34,7 @@ public class TetrisPiece
 
     private Color color;
 
-    private static Random randomNum = new Random();
+    private static Random randomNum = new Random(); // Random number generator used to create random tetris piece
 
     /*
      * createRandomPiece
@@ -42,11 +42,12 @@ public class TetrisPiece
      * Method creates 1 of 7 tetris pieces
      * Uses a random number generator for ints 0-7
      */
-    public static TetrisPiece createRandomPiece(int startingLocation)
+    public static TetrisPiece createRandomPiece(int startingXPos, int startingYPos)
     {
         TetrisPiece randomPiece = new TetrisPiece(0, 0, pieceColors[randomNum.nextInt(5)]);
 
-        randomPiece.xPos = startingLocation;
+        randomPiece.xPos = startingXPos;
+        randomPiece.yPos = startingYPos;
 
         int pieceType = randomNum.nextInt(7);
 
@@ -156,6 +157,12 @@ public class TetrisPiece
     public int getY()
     {
         return yPos;
+    }
+
+    public void setLocation(int x, int y)
+    {
+        xPos = x;
+        yPos = y;
     }
 
     public void translate(int x, int y)

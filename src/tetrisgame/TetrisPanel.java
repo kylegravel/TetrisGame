@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-import javax.swing.*;
 
 public class TetrisPanel extends JPanel
 {
@@ -32,7 +31,10 @@ public class TetrisPanel extends JPanel
                                   + "move the tetris piece<br>2. Use the space key to rotate the piece<br>3. Move and rotate the pieces to " +
                                   "fill rows<br>4. Once filled, rows will clear and points get added" +
                                   "<br>5. Game over happens when all rows fill.<br>" +
-                                  "6. For maximum points, clear 4 rows at a time<br></html>");
+                                  "6. For maximum points, clear 4 rows at a time<br></html>"
+	    							+ "5. Game over happens when all rows fill.<br>" 
+	    							+ "6. For maximum points, clear 4 rows at a time<br></html>");
+	    
         instructions.setVerticalTextPosition(AbstractButton.CENTER);
         instructions.setHorizontalTextPosition(AbstractButton.CENTER);
 
